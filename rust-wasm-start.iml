@@ -4,8 +4,13 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rust-wasm-node/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rust-wasm-web/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rust-wasm-core/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/rust-wasm-node/target" />
+      <excludeFolder url="file://$MODULE_DIR$/rust-wasm-web/target" />
+      <excludeFolder url="file://$MODULE_DIR$/rust-wasm-core/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
