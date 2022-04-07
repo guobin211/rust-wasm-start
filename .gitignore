@@ -1,0 +1,6 @@
+.pnpm-debug.log
+*.log
+pkg
+target
+dist
+build

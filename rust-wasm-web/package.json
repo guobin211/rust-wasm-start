@@ -1,0 +1,10 @@
+{
+  "name": "rust-wasm-web",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "wasm-pack build --release",
+    "test": "cargo test"
+  },
+  "dependencies": {
+  }
+}

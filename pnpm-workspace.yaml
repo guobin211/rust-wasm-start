@@ -1,0 +1,7 @@
+packages:
+  - 'app'
+  - 'app-server'
+  - 'rust-wasm-core'
+  - 'rust-wasm-web'
+  - 'rust-wasm-node'
+  - 'rust-wasm-deno'
