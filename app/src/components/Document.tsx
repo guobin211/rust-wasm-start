@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import App from './App';
 
 export interface DocumentProps {
@@ -8,16 +7,15 @@ export interface DocumentProps {
   description?: string;
 }
 
-
 const Document: React.FC<DocumentProps> = (props) => {
   const { title } = props;
   useEffect(() => {
     if (title && document.title !== title) {
-      document.title = title
+      document.title = title;
     }
-  }, [title])
+  }, [title]);
   return (
-    <App/>
+    <App />
   );
 };
 export default Document;

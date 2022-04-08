@@ -22,11 +22,12 @@ importers:
       '@swc/core': ^1.2.164
       '@types/react-dom': ^17.0.14
       '@webpack-cli/generators': ^2.4.2
-      clean-webpack-plugin: ^4.0.0
       css-loader: ^6.7.1
       html-webpack-plugin: ^5.5.0
       react: ^18.0.0
       react-dom: ^18.0.0
+      rust-wasm-core: ^1.0.0
+      rust-wasm-web: ^1.0.0
       style-loader: ^3.3.1
       swc-loader: ^0.1.15
       ts-loader: ^9.2.8
@@ -39,11 +40,12 @@ importers:
       '@types/react-dom': 17.0.14
       react: 18.0.0
       react-dom: 18.0.0_react@18.0.0
+      rust-wasm-core: link:../rust-wasm-core
+      rust-wasm-web: link:../rust-wasm-web
     devDependencies:
       '@swc/cli': 0.1.57_@swc+core@1.2.164
       '@swc/core': 1.2.164
       '@webpack-cli/generators': 2.4.2_474871b808d47a92b0b35c8948477ac3
-      clean-webpack-plugin: 4.0.0_webpack@5.71.0
       css-loader: 6.7.1_webpack@5.71.0
       html-webpack-plugin: 5.5.0_webpack@5.71.0
       style-loader: 3.3.1_webpack@5.71.0
@@ -1225,16 +1227,6 @@ packages:
       escape-string-regexp: 5.0.0
     dev: true
 
-  /clean-webpack-plugin/4.0.0_webpack@5.71.0:
-    resolution: {integrity: sha512-WuWE1nyTNAyW5T7oNyys2EN0cfP2fdRxhxnIQWiAp0bMabPdHhoGxM8A6YL2GhqwgrPnnaemVE7nv5XJ2Fhh2w==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      webpack: '>=4.0.0 <6.0.0'
-    dependencies:
-      del: 4.1.1
-      webpack: 5.71.0_eee5e9f32bc88886c0731e77f278e501
-    dev: true
-
   /clean-yaml-object/0.1.0:
     resolution: {integrity: sha1-Y/sRDcLOGoTcIfbZM0h20BCui2g=}
     engines: {node: '>=0.10.0'}
@@ -1613,19 +1605,6 @@ packages:
     dependencies:
       is-descriptor: 1.0.2
       isobject: 3.0.1
-    dev: true
-
-  /del/4.1.1:
-    resolution: {integrity: sha512-QwGuEUouP2kVwQenAsOof5Fv8K9t3D8Ca8NxcXKrIpEHjTXK5J2nXLdP+ALI1cgv8wj7KuwBhTwBkOZSJKM5XQ==}
-    engines: {node: '>=6'}
-    dependencies:
-      '@types/glob': 7.2.0
-      globby: 6.1.0
-      is-path-cwd: 2.2.0
-      is-path-in-cwd: 2.1.0
-      p-map: 2.1.0
-      pify: 4.0.1
-      rimraf: 2.7.1
     dev: true
 
   /del/6.0.0:
@@ -2346,17 +2325,6 @@ packages:
       slash: 4.0.0
     dev: true
 
-  /globby/6.1.0:
-    resolution: {integrity: sha1-9abXDoOV4hyFj7BInWTfAkJNUGw=}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      array-union: 1.0.2
-      glob: 7.2.0
-      object-assign: 4.1.1
-      pify: 2.3.0
-      pinkie-promise: 2.0.1
-    dev: true
-
   /globby/8.0.2:
     resolution: {integrity: sha512-yTzMmKygLp8RUpG1Ymu2VXPSJQZjNAZPD4ywgYEaG7e4tBJeUQBO8OpXrf1RCNcEs5alsoJYPAMiIHP0cmeC7w==}
     engines: {node: '>=4'}
@@ -2842,20 +2810,6 @@ packages:
   /is-path-cwd/2.2.0:
     resolution: {integrity: sha512-w942bTcih8fdJPJmQHFzkS76NEP8Kzzvmw92cXsazb8intwLqPibPPdXf4ANdKV3rYMuuQYGIWtvz9JilB3NFQ==}
     engines: {node: '>=6'}
-    dev: true
-
-  /is-path-in-cwd/2.1.0:
-    resolution: {integrity: sha512-rNocXHgipO+rvnP6dk3zI20RpOtrAM/kzbB258Uw5BWr3TpXi861yzjo16Dn4hUox07iw5AyeMLHWsujkjzvRQ==}
-    engines: {node: '>=6'}
-    dependencies:
-      is-path-inside: 2.1.0
-    dev: true
-
-  /is-path-inside/2.1.0:
-    resolution: {integrity: sha512-wiyhTzfDWsvwAW53OBWF5zuvaOGlZ6PwYxAbPVDhpm+gM09xKQGjBq/8uYN12aDvMxnAnq3dxTyoSoRNmg5YFg==}
-    engines: {node: '>=6'}
-    dependencies:
-      path-is-inside: 1.0.2
     dev: true
 
   /is-path-inside/3.0.3:
@@ -3518,11 +3472,6 @@ packages:
       boolbase: 1.0.0
     dev: true
 
-  /object-assign/4.1.1:
-    resolution: {integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=}
-    engines: {node: '>=0.10.0'}
-    dev: true
-
   /object-copy/0.1.0:
     resolution: {integrity: sha1-fn2Fi3gb18mRpBupde04EnVOmYw=}
     engines: {node: '>=0.10.0'}
@@ -3641,11 +3590,6 @@ packages:
       p-limit: 4.0.0
     dev: true
 
-  /p-map/2.1.0:
-    resolution: {integrity: sha512-y3b8Kpd8OAN444hxfBbFfj1FY/RjtTd8tzYwhUqNYXx0fXx2iX4maP4Qr6qhIKbQXI02wTLAda4fYUbDagTUFw==}
-    engines: {node: '>=6'}
-    dev: true
-
   /p-map/4.0.0:
     resolution: {integrity: sha512-/bjOqmgETBYB5BoEeGVea8dmvHb2m9GLy1E9W43yeyfP6QQCZGFNa+XRceJEuDB6zqr+gKpIAmlLebMpykw/MQ==}
     engines: {node: '>=10'}
@@ -3750,10 +3694,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /path-is-inside/1.0.2:
-    resolution: {integrity: sha1-NlQX3t5EQw0cEa9hAn+s8HS9/FM=}
-    dev: true
-
   /path-key/2.0.1:
     resolution: {integrity: sha1-QRyttXTFoUDTpLGRDUDYDMn0C0A=}
     engines: {node: '>=4'}
@@ -3806,18 +3746,6 @@ packages:
   /pify/4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
-    dev: true
-
-  /pinkie-promise/2.0.1:
-    resolution: {integrity: sha1-ITXW36ejWMBprJsXh3YogihFD/o=}
-    engines: {node: '>=0.10.0'}
-    dependencies:
-      pinkie: 2.0.4
-    dev: true
-
-  /pinkie/2.0.4:
-    resolution: {integrity: sha1-clVrgM+g1IqXToDnckjoDtT3+HA=}
-    engines: {node: '>=0.10.0'}
     dev: true
 
   /pkg-conf/4.0.0:

@@ -6,7 +6,7 @@ import './index.css';
 const app = document.getElementById('app') as HTMLDivElement;
 const appRoot: Root = createRoot(app);
 const initProps: DocumentProps = {
-  title: 'Webpack'
+  title: 'Webpack',
 };
 appRoot.render(<Document {...initProps} />);
 prefetch();

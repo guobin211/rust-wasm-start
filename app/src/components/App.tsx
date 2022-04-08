@@ -1,4 +1,6 @@
 import React from 'react';
+import WasmCore from './WasmCore';
+import WasmWeb from './WasmWeb';
 
 export interface AppProps {
   className?: string;
@@ -7,8 +9,9 @@ export interface AppProps {
 const App: React.FC<AppProps> = (props) => {
   const { className } = props;
   return (
-    <div className={className}>
-      App
+    <div className={'app' + className}>
+      <WasmCore />
+      <WasmWeb />
     </div>
   );
 };

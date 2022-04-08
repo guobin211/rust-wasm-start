@@ -1,7 +1,7 @@
 {
   "name": "rust-wasm-app",
   "version": "1.0.0",
-  "description": "My webpack project",
+  "description": "Webpack project",
   "scripts": {
     "dev": "webpack",
     "build": "webpack --mode=production --node-env=production",
@@ -16,7 +16,9 @@
   "dependencies": {
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "@types/react-dom": "^17.0.14"
+    "@types/react-dom": "^17.0.14",
+    "rust-wasm-web": "^1.0.0",
+    "rust-wasm-core": "^1.0.0"
   },
   "devDependencies": {
     "@webpack-cli/generators": "^2.4.2",
