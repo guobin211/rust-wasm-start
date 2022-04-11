@@ -1,23 +1,31 @@
-use std::collections::HashMap;
+#[macro_use]
+extern crate lazy_static;
+
+use std::time::SystemTime;
 
 use js_sys::*;
 use wasm_bindgen::prelude::*;
 
 use crate::utils::safe_encode;
 
+lazy_static! {
+    static ref CALL_COUNT: u32 = 100;
+}
+
 mod utils;
 
 #[wasm_bindgen]
 extern "C" {
-    /// 闭包函数
+    // 闭包函数
     fn takes_immutable_closure(f: &dyn Fn());
 
     fn takes_mutable_closure(f: &mut dyn FnMut());
 
-    fn takes_closure_parse_int_to_string(x: &dyn Fn(u32) -> String);
+    fn takes_closure_parse_to_string(x: &dyn Fn(String) -> String);
+    // console.log
+    #[wasm_bindgen(js_namespace = console, js_name = log)]
+    fn console_log(s: &str);
 }
-
-static CACHE_MAP: HashMap<String, u32> = HashMap::new();
 
 #[wasm_bindgen]
 pub fn parse_number(params: &Number) -> JsString {
@@ -118,14 +126,16 @@ pub fn parse_array_buffer(params: &[u8]) -> usize {
     params.len()
 }
 
-#[allow(dead_code)]
+#[wasm_bindgen]
 pub fn call_js_method() -> u32 {
-    let mut value: u32 = 0;
-    if let Some(v) = &CACHE_MAP.get(&"call_js_method".to_string()) {
-        value = v.to_owned() + 1;
-    }
     takes_immutable_closure(&|| {
-        println!("call_js_method");
+        console_log("call_js_method in rust!");
     });
-    value
+    CALL_COUNT.to_owned()
+}
+
+#[wasm_bindgen]
+pub fn call_take_method(params: &str) {
+    // 可变函数 利用闭包与rust交互
+    takes_closure_parse_to_string(&|x| format!("{}={}&ticket=F08300", params, x));
 }

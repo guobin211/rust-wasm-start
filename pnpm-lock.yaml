@@ -58,7 +58,10 @@ importers:
       webpack-merge: 5.8.0
 
   rust-wasm-core:
-    specifiers: {}
+    specifiers:
+      wasm-pack: ^0.10.2
+    devDependencies:
+      wasm-pack: 0.10.2
 
   rust-wasm-node:
     specifiers:
@@ -69,7 +72,10 @@ importers:
       ava: 4.1.0
 
   rust-wasm-web:
-    specifiers: {}
+    specifiers:
+      wasm-pack: ^0.10.2
+    devDependencies:
+      wasm-pack: 0.10.2
 
 packages:
 

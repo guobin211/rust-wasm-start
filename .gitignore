@@ -4,3 +4,5 @@ pkg
 target
 dist
 build
+/rust-wasm-node/rust-wasm-node.darwin-x64.node
+**/*.node

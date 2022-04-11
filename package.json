@@ -2,7 +2,10 @@
   "name": "rust-wasm-start",
   "version": "1.0.0",
   "scripts": {
-    "build": "pnpm recursive run build"
+    "dev": "npm run build && npm run start",
+    "build": "pnpm -r run build",
+    "start": "pnpm i && cd app && npm run serve",
+    "init": "pnpm i && npm run build && pnpm i"
   },
   "devDependencies": {
     "@napi-rs/cli": "^2.6.2",

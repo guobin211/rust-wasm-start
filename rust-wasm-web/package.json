@@ -5,6 +5,7 @@
     "build": "wasm-pack build --release",
     "test": "cargo test"
   },
-  "dependencies": {
+  "devDependencies": {
+    "wasm-pack": "^0.10.2"
   }
 }

@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { parseString, reverseMap, WasmCoreModule } from '../core/@wasm-core';
+import {
+  callJsMethod,
+  callTakeMethod,
+  parseString,
+  reverseMap,
+  WasmCoreModule,
+} from '../core/@wasm-core';
 import { useModuleKeys } from '../hooks/use-module-keys';
 
 export interface WasmCoreProps {
@@ -7,8 +13,28 @@ export interface WasmCoreProps {
 }
 
 declare const window: Window & {
-  takes_immutable_closure: () => void;
+  takes_immutable_closure: (call: VoidFunction) => void;
+  takes_closure_parse_to_string: (fn: ParamsFunction) => void;
 };
+type VoidFunction = () => void;
+type ParamsFunction = (p: string) => string;
+
+function injectGlobalFunc() {
+  if (!window.takes_immutable_closure) {
+    window.takes_immutable_closure = (call: VoidFunction) => {
+      console.log('call window.takes_immutable_closure start');
+      call();
+      console.log('call window.takes_immutable_closure done');
+    };
+  }
+  if (!window.takes_closure_parse_to_string) {
+    window.takes_closure_parse_to_string = (rustFn: ParamsFunction) => {
+      const result = rustFn('jack');
+      console.log(result);
+    };
+  }
+}
+
 const WasmCore: React.FC<WasmCoreProps> = () => {
   const [value, setValue] = useState<string>('0');
   const [encode, setEncode] = useState<string>('');
@@ -27,11 +53,18 @@ const WasmCore: React.FC<WasmCoreProps> = () => {
   }
 
   function handleTakeClick() {
-    if (!window.takes_immutable_closure) {
-      window.takes_immutable_closure = () => {
-        console.log('takes_immutable_closure');
-      };
-    }
+    injectGlobalFunc();
+  }
+
+  function handleCallClick() {
+    injectGlobalFunc();
+    const result = callJsMethod();
+    console.log('callJsMethod result:', result);
+  }
+
+  function handleCallClick2() {
+    injectGlobalFunc();
+    callTakeMethod('name');
   }
 
   return (
@@ -60,6 +93,12 @@ const WasmCore: React.FC<WasmCoreProps> = () => {
           </div>
           <div className="flex-item">
             <button type={'button'} onClick={handleTakeClick}>takes_immutable_closure</button>
+          </div>
+          <div className="flex-item">
+            <button type={'button'} onClick={handleCallClick}>call_js_method</button>
+          </div>
+          <div className="flex-item">
+            <button type={'button'} onClick={handleCallClick2}>call_js_method2</button>
           </div>
         </div>
       </div>
