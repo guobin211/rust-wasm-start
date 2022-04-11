@@ -1,8 +1,20 @@
-import { parse_number } from 'rust-wasm-core/pkg';
+import * as WasmCoreModule from 'rust-wasm-core/pkg';
 
-export function parseNumber(n: number) {
-  if (typeof n === 'number') {
-    return parse_number(n);
+const { parse_string, reverse_map } = WasmCoreModule;
+
+function parseString(n: string) {
+  if (typeof n === 'string') {
+    return parse_string(n);
   }
-  throw new Error(`Expected number, got ${typeof n}`);
+  throw new Error(`Expected string, got ${typeof n}`);
 }
+
+function reverseMap(p: Map<string, string>) {
+  return reverse_map(p);
+}
+
+export {
+  WasmCoreModule,
+  parseString,
+  reverseMap,
+};

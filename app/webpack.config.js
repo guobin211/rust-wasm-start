@@ -10,6 +10,7 @@ const config = {
     clean: true,
   },
   target: 'web',
+  stats: 'errors-warnings',
   devServer: {
     open: false,
     host: 'localhost',
