@@ -8,16 +8,16 @@ import {
 } from '../core/@wasm-core';
 import { useModuleKeys } from '../hooks/use-module-keys';
 
-export interface WasmCoreProps {
+interface WasmCoreProps {
   className?: string;
 }
 
+type VoidFunction = () => void;
+type ParamsFunction = (p: string) => string;
 declare const window: Window & {
   takes_immutable_closure: (call: VoidFunction) => void;
   takes_closure_parse_to_string: (fn: ParamsFunction) => void;
 };
-type VoidFunction = () => void;
-type ParamsFunction = (p: string) => string;
 
 function injectGlobalFunc() {
   if (!window.takes_immutable_closure) {
@@ -104,5 +104,10 @@ const WasmCore: React.FC<WasmCoreProps> = () => {
       </div>
     </div>
   );
+};
+export {
+  WasmCoreProps,
+  VoidFunction,
+  ParamsFunction,
 };
 export default WasmCore;

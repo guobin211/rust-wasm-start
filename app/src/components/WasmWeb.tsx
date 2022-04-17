@@ -1,7 +1,7 @@
 import React from 'react';
 import { callAlert } from '../core/@wasm-web';
 
-export interface WasmWebProps {
+interface WasmWebProps {
   className?: string;
 }
 
@@ -18,5 +18,8 @@ const WasmWeb: React.FC<WasmWebProps> = () => {
       </div>
     </div>
   );
+};
+export {
+  WasmWebProps,
 };
 export default WasmWeb;
