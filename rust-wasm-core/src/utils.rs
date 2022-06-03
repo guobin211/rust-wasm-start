@@ -2,7 +2,7 @@ use js_sys::{decode_uri_component, encode_uri_component, escape, unescape, JsStr
 
 #[allow(dead_code)]
 pub fn is_equal(m: f64, n: f64) -> bool {
-    (m - n).abs() < 0.000_000_000_001
+    (m - n).abs() < f32::MAX as f64
 }
 
 #[allow(dead_code)]
