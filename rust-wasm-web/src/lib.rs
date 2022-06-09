@@ -29,3 +29,8 @@ pub fn call_alert(text: &str) {
     log(&data);
     alert(&data);
 }
+
+#[wasm_bindgen]
+pub fn create_logger() {
+    Logger::new().log("Hello from Rust!");
+}

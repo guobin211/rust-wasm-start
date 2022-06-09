@@ -8,3 +8,4 @@ build
 /rust-wasm-node/*.node
 /rust-wasm-node/index.js
 /rust-wasm-node/index.d.ts
+node_modules
