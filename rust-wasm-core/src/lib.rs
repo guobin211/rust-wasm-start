@@ -2,6 +2,7 @@
 extern crate lazy_static;
 
 use js_sys::*;
+use std::iter::Iterator;
 use wasm_bindgen::prelude::*;
 
 use crate::utils::safe_encode;

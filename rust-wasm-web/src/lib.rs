@@ -1,9 +1,8 @@
+use oxipng::{optimize_from_memory, Options};
 use wasm_bindgen::prelude::*;
 
-use crate::logger::{log, Logger};
 use crate::utils::set_panic_hook;
 
-mod logger;
 mod utils;
 
 #[cfg(feature = "wee_alloc")]
@@ -11,26 +10,31 @@ mod utils;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
-extern "C" {
-    // namespace is window in browser
-    fn alert(s: &str);
-
-    #[wasm_bindgen(js_namespace = console, js_name = log)]
-    fn console_log(s: &str);
-
-    #[wasm_bindgen(js_namespace = console, js_name = error)]
-    fn console_error(a: &str);
-}
-
-#[wasm_bindgen]
-pub fn call_alert(text: &str) {
+pub fn compress_image(image_data: &[u8]) -> Vec<u8> {
     set_panic_hook();
-    let data = format!("Alert By Rust! {}", text);
-    log(&data);
-    alert(&data);
+    let options = Options {
+        ..Options::default()
+    };
+    match optimize_from_memory(image_data, &options) {
+        Ok(result) => result,
+        Err(e) => {
+            panic!("Error: {}", e);
+        }
+    }
 }
 
-#[wasm_bindgen]
-pub fn create_logger() {
-    Logger::new().log("Hello from Rust!");
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_compress_image() {
+        let current_dir = std::env::current_dir().unwrap();
+        println!("{:?}", current_dir);
+        let file_path = current_dir.join("src/test.png");
+        let file = std::fs::read(file_path).unwrap();
+        let result = compress_image(&file);
+        let percentage = (result.len() as f32 / file.len() as f32) * 100.0;
+        println!("result size {}%", percentage);
+    }
 }
